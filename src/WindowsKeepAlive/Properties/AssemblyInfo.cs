@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("WindowsKeepAlive")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Windows KeepAlive")]
+[assembly: AssemblyDescription("A Windows desktop application that will prevent your PC from locking or going into sleep mode.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Crawford & Co")]
-[assembly: AssemblyProduct("WindowsKeepAlive")]
-[assembly: AssemblyCopyright("Copyright © Crawford & Co 2018")]
+[assembly: AssemblyCompany("Crimson Space Media")]
+[assembly: AssemblyProduct("Windows KeepAlive")]
+[assembly: AssemblyCopyright("Copyright © Crimson Space Media 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
