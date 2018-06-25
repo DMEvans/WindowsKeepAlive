@@ -1,7 +1,7 @@
-#Windows KeepAlive
+# Windows KeepAlive
 A Windows desktop application that will prevent your PC from locking or going into sleep mode. Useful for presentations where content may be required to remain on screen without regular input.
 
-##Usage
+## Usage
 The application has a simple activate/deactivate button.  You can optionally set an expiry time in which to deactivate the "KeepAlive" mode.
 
 ![alt-text][main-form]
