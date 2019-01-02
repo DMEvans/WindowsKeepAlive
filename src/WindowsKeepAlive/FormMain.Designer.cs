@@ -31,17 +31,20 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.ctxMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ctxItemActivate = new System.Windows.Forms.ToolStripMenuItem();
+            this.ctxSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.ctxItemClose = new System.Windows.Forms.ToolStripMenuItem();
             this.btnAction = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.chkDeactivateTimer = new System.Windows.Forms.CheckBox();
             this.numDeactivateTimer = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
-            this.ctxMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.ctxItemActivate = new System.Windows.Forms.ToolStripMenuItem();
-            this.ctxItemClose = new System.Windows.Forms.ToolStripMenuItem();
-            this.ctxSeparator = new System.Windows.Forms.ToolStripSeparator();
-            ((System.ComponentModel.ISupportInitialize)(this.numDeactivateTimer)).BeginInit();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.lblVersion = new System.Windows.Forms.ToolStripStatusLabel();
             this.ctxMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numDeactivateTimer)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // notifyIcon
@@ -52,9 +55,37 @@
             this.notifyIcon.Visible = true;
             this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick);
             // 
+            // ctxMenu
+            // 
+            this.ctxMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ctxItemActivate,
+            this.ctxSeparator,
+            this.ctxItemClose});
+            this.ctxMenu.Name = "ctxMenu";
+            this.ctxMenu.Size = new System.Drawing.Size(118, 54);
+            // 
+            // ctxItemActivate
+            // 
+            this.ctxItemActivate.Name = "ctxItemActivate";
+            this.ctxItemActivate.Size = new System.Drawing.Size(117, 22);
+            this.ctxItemActivate.Text = "Activate";
+            this.ctxItemActivate.Click += new System.EventHandler(this.ctxItemActivate_Click);
+            // 
+            // ctxSeparator
+            // 
+            this.ctxSeparator.Name = "ctxSeparator";
+            this.ctxSeparator.Size = new System.Drawing.Size(114, 6);
+            // 
+            // ctxItemClose
+            // 
+            this.ctxItemClose.Name = "ctxItemClose";
+            this.ctxItemClose.Size = new System.Drawing.Size(117, 22);
+            this.ctxItemClose.Text = "Close";
+            this.ctxItemClose.Click += new System.EventHandler(this.ctxItemClose_Click);
+            // 
             // btnAction
             // 
-            this.btnAction.Location = new System.Drawing.Point(12, 64);
+            this.btnAction.Location = new System.Drawing.Point(12, 71);
             this.btnAction.Name = "btnAction";
             this.btnAction.Size = new System.Drawing.Size(344, 40);
             this.btnAction.TabIndex = 1;
@@ -115,39 +146,29 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "minutes";
             // 
-            // ctxMenu
+            // statusStrip1
             // 
-            this.ctxMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ctxItemActivate,
-            this.ctxSeparator,
-            this.ctxItemClose});
-            this.ctxMenu.Name = "ctxMenu";
-            this.ctxMenu.Size = new System.Drawing.Size(153, 76);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblVersion});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 120);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(369, 22);
+            this.statusStrip1.TabIndex = 6;
+            this.statusStrip1.Text = "statusStrip";
             // 
-            // ctxItemActivate
+            // lblVersion
             // 
-            this.ctxItemActivate.Name = "ctxItemActivate";
-            this.ctxItemActivate.Size = new System.Drawing.Size(152, 22);
-            this.ctxItemActivate.Text = "Activate";
-            this.ctxItemActivate.Click += new System.EventHandler(this.ctxItemActivate_Click);
-            // 
-            // ctxItemClose
-            // 
-            this.ctxItemClose.Name = "ctxItemClose";
-            this.ctxItemClose.Size = new System.Drawing.Size(152, 22);
-            this.ctxItemClose.Text = "Close";
-            this.ctxItemClose.Click += new System.EventHandler(this.ctxItemClose_Click);
-            // 
-            // ctxSeparator
-            // 
-            this.ctxSeparator.Name = "ctxSeparator";
-            this.ctxSeparator.Size = new System.Drawing.Size(149, 6);
+            this.lblVersion.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(85, 17);
+            this.lblVersion.Text = "Version: 0.0.0.0";
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(369, 116);
+            this.ClientSize = new System.Drawing.Size(369, 142);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.numDeactivateTimer);
             this.Controls.Add(this.chkDeactivateTimer);
@@ -156,16 +177,18 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(385, 154);
-            this.MinimumSize = new System.Drawing.Size(385, 154);
+            this.MaximumSize = new System.Drawing.Size(385, 180);
+            this.MinimumSize = new System.Drawing.Size(385, 180);
             this.Name = "FormMain";
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
             this.Text = "Windows Keep Alive";
             this.TopMost = true;
-            ((System.ComponentModel.ISupportInitialize)(this.numDeactivateTimer)).EndInit();
             this.ctxMenu.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numDeactivateTimer)).EndInit();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -183,6 +206,8 @@
         private System.Windows.Forms.ToolStripMenuItem ctxItemActivate;
         private System.Windows.Forms.ToolStripSeparator ctxSeparator;
         private System.Windows.Forms.ToolStripMenuItem ctxItemClose;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel lblVersion;
     }
 }
 
