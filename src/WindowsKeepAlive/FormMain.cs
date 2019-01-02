@@ -13,6 +13,7 @@
         public FormMain()
         {
             InitializeComponent();
+            lblVersion.Text = "Version: " + Application.ProductVersion;
 
             _deactivateTimer = new System.Timers.Timer();
             _deactivateTimer.AutoReset = false;
