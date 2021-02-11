@@ -23,6 +23,9 @@
             _updateRefreshTimer.Interval = 30000;
             _updateRefreshTimer.AutoReset = true;
             _updateRefreshTimer.Elapsed += _updateRefreshTimer_Elapsed;
+
+
+            timePicker.Value = DateTime.Today.AddHours(17);
         }
 
         private void _deactivateTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -39,7 +42,7 @@
         {
             var message = string.Empty;
 
-            if (chkDeactivateTimer.Checked)
+            if (rdoDeactivateAfter.Checked)
             {
                 var minutes = numDeactivateTimer.Value;
                 var interval = (double)minutes * 60 * 1000;
@@ -49,6 +52,16 @@
 
                 var aliveUntil = DateTime.Now.AddMilliseconds(interval);
                 message = string.Format("KeepAlive active until {0}", aliveUntil.ToString("HH:mm:ss"));
+            }
+            else if (rdoDeactivateAt.Checked)
+            {
+                var time = timePicker.Value < DateTime.Now ? timePicker.Value.AddDays(1) : timePicker.Value;
+                var timeSpan = time - DateTime.Now;
+
+                _deactivateTimer.Interval = timeSpan.TotalMilliseconds;
+                _deactivateTimer.Start();
+
+                message = string.Format("KeepAlive active until {0}", time.ToString("HH:mm:ss"));
             }
             else
             {
@@ -65,10 +78,15 @@
         {
             ProcessKeepAlive();
         }
-
-        private void chkDeactivateTimer_CheckedChanged(object sender, System.EventArgs e)
+        
+        private void rdoDeactivateAt_CheckedChanged(object sender, EventArgs e)
         {
-            numDeactivateTimer.Enabled = chkDeactivateTimer.Checked;
+            timePicker.Enabled = (sender as RadioButton).Checked;
+        }
+
+        private void rdoDeactivateAfter_CheckedChanged(object sender, EventArgs e)
+        {
+            numDeactivateTimer.Enabled = (sender as RadioButton).Checked;
         }
 
         private void ctxItemActivate_Click(object sender, EventArgs e)
@@ -91,8 +109,11 @@
 
         private void EnableDisableControls()
         {
-            chkDeactivateTimer.Enabled = !_isActive;
-            numDeactivateTimer.Enabled = !_isActive && chkDeactivateTimer.Checked;
+            rdoIndefinite.Enabled = !_isActive;
+            rdoDeactivateAfter.Enabled = !_isActive;
+            numDeactivateTimer.Enabled = !_isActive && rdoDeactivateAfter.Checked;
+            rdoDeactivateAt.Enabled = !_isActive;
+            timePicker.Enabled = !_isActive && rdoDeactivateAt.Checked;
         }
 
         private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -128,5 +149,6 @@
             this.Visible = visible;
             this.ShowInTaskbar = visible;
         }
+       
     }
 }
